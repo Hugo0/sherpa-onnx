@@ -173,6 +173,11 @@ class BuildExtension(build_ext):
         if "PYTHON_EXECUTABLE" not in cmake_args:
             print(f"Setting PYTHON_EXECUTABLE to {sys.executable}")
             cmake_args += f" -DPYTHON_EXECUTABLE={sys.executable}"
+        if "Python_EXECUTABLE" not in cmake_args:
+            # pybind11 3 finds Python with FindPython, which reads
+            # Python_EXECUTABLE; without it the extension may be built for
+            # another interpreter on PATH (e.g. cp312 for a cp313 wheel).
+            cmake_args += f" -DPython_EXECUTABLE={sys.executable}"
 
         # putting `cmake_args` from env variable ${SHERPA_ONNX_CMAKE_ARGS} last,
         # so they can onverride the "defaults" stored in `extra_cmake_args`
