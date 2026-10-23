@@ -95,3 +95,7 @@ from .keyword_spotter import KeywordSpotter
 from .offline_recognizer import OfflineRecognizer
 from .online_recognizer import OnlineRecognizer
 from .utils import text2token
+
+# This build accepts hotwords given as tokens from tokens.txt (e.g. "▁Het zn er"),
+# used as is instead of re-encoded with bpe.vocab. Lets callers feature-detect it.
+HOTWORDS_PRETOKENIZED = True
